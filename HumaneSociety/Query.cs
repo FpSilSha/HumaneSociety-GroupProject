@@ -159,13 +159,19 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
-        internal static Animal GetAnimalByID(string AnimalId, string name)
+        internal static Animal GetAnimalByID(int AnimalId, string name)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
-            Animal animal = db.Animal.Where(a => a.AnimalId == AnimalId && a.name == name).Single();
+            Animal animal = db.Animals.Where(a => a.AnimalId == AnimalId && a.Name == name).Single();
 
             return animal;
         }
+         static void RunEmployeeQueries(Employee employee, string words)
+        {
+
+        }
+
+       
     }
 }
