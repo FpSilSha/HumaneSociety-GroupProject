@@ -79,7 +79,7 @@ namespace HumaneSociety
             Console.Clear();
             UserInterface.DisplayUserOptions("Please enter the ID of the animal you wish to adopt or type reset or exit");
             int iD = UserInterface.GetIntegerData();
-            var animal = Query.GetAnimalByID(iD);
+            var animal = Query.GetAnimalByID(iD,name);
             UserInterface.DisplayAnimalInfo(animal);
             UserInterface.DisplayUserOptions("Would you like to adopt?");
             if ((bool)UserInterface.GetBitData())
