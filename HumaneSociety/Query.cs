@@ -113,7 +113,15 @@ namespace HumaneSociety
             // submit changes
             db.SubmitChanges();
         }
-
+        internal static void Adopt(Animal animal, Client client)
+        {
+           
+        }
+        internal static List<Adoption> GetPendingAdoptions()
+        {
+            List<Adoption> animals = new List<Adoption>();
+            return animals;
+        }
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -128,6 +136,10 @@ namespace HumaneSociety
             {
                 return employeeFromDb;
             }            
+        }
+        internal static void UpdateAdoption(bool accessibility, Adoption adoption)
+        {
+
         }
 
         internal static Employee EmployeeLogin(string userName, string password)
@@ -147,6 +159,10 @@ namespace HumaneSociety
 
             return employeeWithUserName == null;
         }
+        internal static void RunEmployeeQueries(Employee employee, string words)
+        {
+
+        }
 
         internal static void AddUsernameAndPassword(Employee employee)
         {
@@ -159,13 +175,58 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
-        internal static Animal GetAnimalByID(string AnimalId, string name)
+        internal static int GetCategoryId()
+        {
+            //this is an empty method with a dummy return to remove an error. FIX
+            return 6;
+        }
+        internal static Animal GetAnimalByID(int AnimalId, string name)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
-            Animal animal = db.Animal.Where(a => a.AnimalId == AnimalId && a.name == name).Single();
+            Animal animal = db.Animals.Where(a => a.AnimalId == AnimalId && a.Name == name).Single();
 
             return animal;
         }
+        public static int GetDietPlanId()
+        {
+            //this is an empty method with a dummy return to remove an error. FIX
+            return 6;
+        }
+        internal static List<Animal> SearchForAnimalByMultipleTraits()
+        {
+            List<Animal> animal = new List<Animal>();
+            return animal;
+        }
+        internal static void AddAnimal(Animal animal)
+        {
+
+        }
+        internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
+        {
+
+        }
+        internal static void RemoveAnimal(Animal animal)
+        {
+
+        }
+        internal static List<AnimalShot> GetShots(Animal animal)
+        {
+            List<AnimalShot> animals = new List<AnimalShot>();
+            return animals;
+        }
+        internal static void UpdateShot(string booster, Animal animal)
+        {
+
+        }
+        internal static Room GetRoom(int AnimalId)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            Room room = new Room();
+
+            return room;
+        }
     }
+
 }
