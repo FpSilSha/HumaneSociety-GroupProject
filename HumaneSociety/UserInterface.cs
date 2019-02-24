@@ -21,6 +21,7 @@ namespace HumaneSociety
         }
         public static string GetUserInput()
         {
+            
             string input = Console.ReadLine();
             switch (input.ToLower())
             {
@@ -217,9 +218,31 @@ namespace HumaneSociety
                     searchParameters.Add(8, UserInterface.GetIntegerData("ID", "the animal's").ToString());
                     return searchParameters;
                 default:
-                    UserInterface.DisplayUserOptions("Input not recognized please try agian");
+                    UserInterface.DisplayUserOptions("Input not recognized please try again");
                     return searchParameters;
             }
         }
+
+        public static string GetUserInputWithOutput(string words)
+        {
+            Console.WriteLine(words);
+            string input = Console.ReadLine();
+            switch (input.ToLower())
+            {
+                case "reset":
+                    PointOfEntry.Run();
+                    Environment.Exit(1);
+                    break;
+                case "exit":
+                    Environment.Exit(1);
+                    break;
+                default:
+                    break;
+            }
+
+            return input;
+        }
+
+       
     }
 }
