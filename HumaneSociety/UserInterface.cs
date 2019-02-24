@@ -228,6 +228,7 @@ namespace HumaneSociety
             Console.WriteLine(words);
             string input = Console.ReadLine();
             switch (input.ToLower())
+             
             {
                 case "reset":
                     PointOfEntry.Run();
@@ -239,10 +240,16 @@ namespace HumaneSociety
                 default:
                     break;
             }
-
+            string output = CapitalizeFirstLetter(input);
             return input;
         }
 
-       
+        internal static string CapitalizeFirstLetter(string input)
+        {
+            string output = input;
+           
+            return output.First().ToString().ToUpper() + output.Substring(1);
+
+        }
     }
 }
