@@ -8,6 +8,7 @@ namespace HumaneSociety
 {
     public static class Query
     {
+        public delegate int StringToIntFunction(string s);
         internal static List<USState> GetStates()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
@@ -177,6 +178,7 @@ namespace HumaneSociety
         }
         internal static int GetCategoryId()
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             //this is an empty method with a dummy return to remove an error. FIX
             return 6;
         }
@@ -200,7 +202,7 @@ namespace HumaneSociety
         }
         internal static void AddAnimal(Animal animal)
         {
-
+            //Create
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
@@ -208,7 +210,7 @@ namespace HumaneSociety
         }
         internal static void RemoveAnimal(Animal animal)
         {
-
+            //Delete
         }
         internal static List<AnimalShot> GetShots(Animal animal)
         {
