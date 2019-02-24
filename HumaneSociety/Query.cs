@@ -178,9 +178,11 @@ namespace HumaneSociety
         }
         internal static int GetCategoryId()
         {
+
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            //this is an empty method with a dummy return to remove an error. FIX
-            return 6;
+            string input = UserInterface.GetUserInputWithOutput("What type of animal are you cataloging?");
+            int category = db.Categories.Where(c => c.Name == input).Select(c => c.CategoryId).Single();
+            return category;
         }
         internal static Animal GetAnimalByID(int AnimalId, string name)
         {
