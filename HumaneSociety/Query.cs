@@ -176,11 +176,28 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
-        internal static int GetCategoryId()
+        internal static int? GetCategoryId()
         {
 
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             string input = UserInterface.GetUserInputWithOutput("What type of animal are you cataloging?");
+            int ?category = db.Categories.Where(c => c.Name == input).Select(c => c.CategoryId).Single();
+            if (category == null)
+            {
+                Console.WriteLine("This species does not exist.");
+                int newCategory = AddCategoryName();
+                return newCategory;
+            }
+            return category;
+        }
+        internal static int AddCategoryName()
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Category newCategory = new Category();
+            
+            string input = UserInterface.GetUserInputWithOutput("What would you like to name this new species?");
+            newCategory.Name = input;
+            db.Categories.InsertOnSubmit(newCategory);
             int category = db.Categories.Where(c => c.Name == input).Select(c => c.CategoryId).Single();
             return category;
         }
