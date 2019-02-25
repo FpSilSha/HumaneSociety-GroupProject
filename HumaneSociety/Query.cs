@@ -120,8 +120,10 @@ namespace HumaneSociety
         }
         internal static List<Adoption> GetPendingAdoptions()
         {
-            List<Adoption> animals = new List<Adoption>();
-            return animals;
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            List<Adoption> adoptions = new List<Adoption>();
+            adoptions = db.Adoptions.Where(a => a.ApprovalStatus.Contains("pending")).ToList();
+            return adoptions;
         }
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
