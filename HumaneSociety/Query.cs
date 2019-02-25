@@ -191,10 +191,10 @@ namespace HumaneSociety
             db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
         }
-        internal static void GetEmployeeById(int employeeId)
+        internal static void GetEmployeeByEmployeeNumber(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Employee employee = db.Employees.Where(e => e.EmployeeId == employeeId).Single();
+            Employee employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
             UserInterface.DisplayEmployeeInfo(employee);
 
         }
@@ -216,9 +216,9 @@ namespace HumaneSociety
                 case "create":
                     CreateEmployee(employee);                    
                     break;
-
+                    
                 case "read":
-
+                    GetEmployeeByEmployeeNumber(employee);
                     break;
 
                 case "update":
