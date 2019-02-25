@@ -185,31 +185,23 @@ namespace HumaneSociety
 
             return employeeWithUserName == null;
         }
-        internal static void CreateEmployee()
+        internal static void CreateEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Employee newbie = new Employee();
-            newbie.FirstName = UserInterface.GetUserInputWithOutput("What is the First Name?");
-            newbie.LastName = UserInterface.GetUserInputWithOutput("What is the Last Name?");
-            newbie.UserName = UserInterface.GetUserInputWithOutput("What is the User Name?");
-            newbie.Password = UserInterface.GetUserInputWithOutput("What is the PassWord?");
-            Console.WriteLine("What is the Employee Number");
-            newbie.EmployeeNumber = UserInterface.GetIntegerData();
-            newbie.Email = UserInterface.GetUserInputWithOutput("What is your Email?");
-
-            db.Employees.InsertOnSubmit(newbie);
+            db.Employees.InsertOnSubmit(employee);
             db.SubmitChanges();
-
         }
-        internal static void GetEmployeeById(int EmployeeId)
+        internal static void GetEmployeeById(int employeeId)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Employee employee = db.Employees.Where(e => e.EmployeeId == EmployeeId).Single();
+            Employee employee = db.Employees.Where(e => e.EmployeeId == employeeId).Single();
             UserInterface.DisplayEmployeeInfo(employee);
 
         }
-        internal static void UpdateEmployee()
+        internal static void UpdateEmployee(int employeeId)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Employee employee = db.Employees.Where(e => e.EmployeeId == employeeId).Single();
 
         }
         internal static void DeleteEmployee()
@@ -218,10 +210,11 @@ namespace HumaneSociety
         }
         internal static void RunEmployeeQueries(Employee employee, string words)
         {
+            
             switch (words)
             {
                 case "create":
-                   
+                    CreateEmployee(employee);                    
                     break;
 
                 case "read":
