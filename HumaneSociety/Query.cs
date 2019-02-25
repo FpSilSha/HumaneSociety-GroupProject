@@ -337,7 +337,16 @@ namespace HumaneSociety
         }
         internal static void AddAnimal(Animal animal)
         {
-            //Create
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Animal tempAnimal = new Animal();
+            tempAnimal.Name = animal.Name;
+            tempAnimal.Weight = animal.Weight;
+            tempAnimal.Age = animal.Age;
+            tempAnimal.Demeanor = animal.Demeanor;
+            tempAnimal.KidFriendly = animal.KidFriendly;
+            tempAnimal.PetFriendly = animal.PetFriendly;
+            tempAnimal.Gender = animal.Gender;
+            tempAnimal.AdoptionStatus = animal.AdoptionStatus;
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
