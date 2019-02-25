@@ -8,6 +8,8 @@ namespace HumaneSociety
 {
     class Admin : User
     {
+        internal delegate void Delegate_Crud();
+
         public override void LogIn()
         {
             UserInterface.DisplayUserOptions("What is your password?");
@@ -32,24 +34,25 @@ namespace HumaneSociety
         }
         protected void RunInput(string input)
         {
-            if(input == "1" || input.ToLower() == "create")
+            Delegate_Crud crud_Delegate;
+            if (input == "1" || input.ToLower() == "create")
             {
-                AddEmployee();
+                crud_Delegate = AddEmployee;
                 RunUserMenus();
             }
             else if(input == "2" || input.ToLower() == "delete")
             {
-                RemoveEmployee();
+                crud_Delegate = RemoveEmployee;
                 RunUserMenus();
             }
             else if(input == "3" || input.ToLower() == "read")
             {
-                ReadEmployee();
+                crud_Delegate = ReadEmployee;
                 RunUserMenus();
             }
             else if (input == "4" || input.ToLower() == "update")
             {
-                UpdateEmployee();
+                crud_Delegate = UpdateEmployee;
                 RunUserMenus();
             }
             else
@@ -57,6 +60,7 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Input not recognized please try again or type exit");
                 RunUserMenus();
             }
+          
         }
 
         private void UpdateEmployee()
@@ -78,7 +82,9 @@ namespace HumaneSociety
                 return;
             }
         }
-        
+
+
+
         private void ReadEmployee()
         {
             try

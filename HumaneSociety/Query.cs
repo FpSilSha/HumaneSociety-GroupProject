@@ -160,8 +160,43 @@ namespace HumaneSociety
 
             return employeeWithUserName == null;
         }
+        internal static void CreateEmployee()
+        {
+            
+        }
+        internal static void GetEmployee()
+        {
+
+        }
+        internal static void UpdateEmployee()
+        {
+
+        }
+        internal static void DeleteEmployee()
+        {
+
+        }
         internal static void RunEmployeeQueries(Employee employee, string words)
         {
+            switch (words)
+            {
+                case "create":
+                   
+                    break;
+
+                case "read":
+
+                    break;
+
+                case "update":
+
+                    break;
+
+                case "delete":
+
+                    break;
+
+            }
 
         }
 
