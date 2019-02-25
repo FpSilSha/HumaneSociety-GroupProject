@@ -116,12 +116,25 @@ namespace HumaneSociety
         }
         internal static void Adopt(Animal animal, Client client)
         {
-           
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoption = new Adoption();
+            adoption.Client = client;
+            adoption.ApprovalStatus = "Pending";
+            animal.AdoptionStatus = "Pending";
+            if (UserInterface.GetBitData("The adoption fee is $75 and by agreeing to this adoption you are commiting to this payment. Should this adoption be processed?"))
+            {
+                adoption.AdoptionFee = 75;
+                db.SubmitChanges();
+            }
+
+
         }
         internal static List<Adoption> GetPendingAdoptions()
         {
-            List<Adoption> animals = new List<Adoption>();
-            return animals;
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            List<Adoption> adoptions = new List<Adoption>();
+            adoptions = db.Adoptions.Where(a => a.ApprovalStatus.Contains("pending")).ToList();
+            return adoptions;
         }
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
@@ -138,9 +151,21 @@ namespace HumaneSociety
                 return employeeFromDb;
             }            
         }
-        internal static void UpdateAdoption(bool accessibility, Adoption adoption)
+        internal static void UpdateAdoption(bool approval, Adoption adoption)
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoptionFromDB = db.Adoptions.Where(c => c.AdoptionId == adoption.AdoptionId).Single();
+            if (approval == true)
+            {
+                adoptionFromDB.PaymentCollected = true;
+                adoptionFromDB.ApprovalStatus = "Approved";
+                db.SubmitChanges();
+            }
+            else
+            {
+                adoptionFromDB.ApprovalStatus = "Denied";
+                db.SubmitChanges();
+            }
         }
 
         internal static Employee EmployeeLogin(string userName, string password)
@@ -278,7 +303,6 @@ namespace HumaneSociety
                     oldDP.FoodAmountInCups = UserInterface.GetIntegerData();
                     break;
             }
-            db.DietPlans.InsertOnSubmit(oldDP);
             db.SubmitChanges();
 
         }
@@ -339,6 +363,7 @@ namespace HumaneSociety
                 animalShot.DateReceived = date;
                 animalShot.AnimalId = animal.AnimalId;
                 animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s=>s.ShotId).Single();
+                db.SubmitChanges();
             }
             
 
@@ -347,9 +372,6 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             Room currentRoom=db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
-            //switched return to be specifically current room number (int) but program specifically want Room
-            //int? roomNumber = currentRoom.RoomId;
-            //return roomNumber;
             return currentRoom;
         }
         internal static void UpdateRoom(int AnimalId)
@@ -368,6 +390,7 @@ namespace HumaneSociety
                         int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
 
                         animalInRoom = AnimalId;
+                        db.SubmitChanges();
                     }
                 }
                 catch (Exception)
