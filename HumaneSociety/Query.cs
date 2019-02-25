@@ -116,6 +116,8 @@ namespace HumaneSociety
         }
         internal static void Adopt(Animal animal, Client client)
         {
+           //I need adoption fee to be sent to customer to review
+         
            
         }
         internal static List<Adoption> GetPendingAdoptions()
@@ -140,9 +142,20 @@ namespace HumaneSociety
                 return employeeFromDb;
             }            
         }
-        internal static void UpdateAdoption(bool accessibility, Adoption adoption)
+        internal static void UpdateAdoption(bool approval, Adoption adoption)
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoptionFromDB = db.Adoptions.Where(c => c.AdoptionId == adoption.AdoptionId).Single();
+            if (approval == true)
+            {
+                adoptionFromDB.PaymentCollected = true;
+                adoptionFromDB.ApprovalStatus = "Approved";
 
+            }
+            else
+            {
+                adoptionFromDB.ApprovalStatus = "Denied";
+            }
         }
 
         internal static Employee EmployeeLogin(string userName, string password)
@@ -314,9 +327,6 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             Room currentRoom=db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
-            //switched return to be specifically current room number (int) but program specifically want Room
-            //int? roomNumber = currentRoom.RoomId;
-            //return roomNumber;
             return currentRoom;
         }
         internal static void UpdateRoom(int AnimalId)
