@@ -203,7 +203,10 @@ namespace HumaneSociety
         }
         internal static void GetEmployeeById(int EmployeeId)
         {
-     
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Employee employee = db.Employees.Where(e => e.EmployeeId == EmployeeId).Single();
+            UserInterface.DisplayEmployeeInfo(employee);
+
         }
         internal static void UpdateEmployee()
         {
