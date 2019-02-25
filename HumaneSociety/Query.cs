@@ -235,11 +235,9 @@ namespace HumaneSociety
         }
         internal static List<AnimalShot> GetShots(Animal animal)
         {
-                HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-                List<AnimalShot> animalShots = new List<AnimalShot>();
-                animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId).ToList();
-            
-            return animalShots;
+            List<AnimalShot> animals = new List<AnimalShot>();
+
+            return animals;
         }
         internal static void UpdateShot(string booster, Animal animal)
         {
@@ -248,16 +246,21 @@ namespace HumaneSociety
             int day;
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             AnimalShot animalShot = new AnimalShot();
-            Console.WriteLine("What year was the shot administered?");
-            year = Convert.ToInt16(Console.ReadLine());
-            Console.WriteLine("What month was the shot administered?");
-            month = Convert.ToInt16(Console.ReadLine());
-            Console.WriteLine("What day was the shot administered?");
-            day = Convert.ToInt16(Console.ReadLine());
-            DateTime date = new DateTime(year, month, day);
-            animalShot.DateReceived = date;
-            animalShot.AnimalId = animal.AnimalId;
-            animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s => s.ShotId).Single();
+            if (UserInterface.GetBitData($"Was {booster} what you meant to type?"))
+            {
+                //DateTime get
+                Console.WriteLine("What year was the shot administered?");
+                year = Convert.ToInt16(Console.ReadLine());
+                Console.WriteLine("What month was the shot administered?");
+                month = Convert.ToInt16(Console.ReadLine());
+                Console.WriteLine("What day was the shot administered?");
+                day = Convert.ToInt16(Console.ReadLine());
+                DateTime date = new DateTime(year, month, day);
+                animalShot.DateReceived = date;
+                animalShot.AnimalId = animal.AnimalId;
+                animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s=>s.ShotId).Single();
+            }
+            
         }
         internal static Room GetRoom(int AnimalId)
         {
