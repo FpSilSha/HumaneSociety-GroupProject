@@ -117,7 +117,8 @@ namespace HumaneSociety
         internal static void Adopt(Animal animal, Client client)
         {
            //I need adoption fee to be sent to customer to review
-         
+         //I need to update approvalstatus to pending
+         //I need to 
            
         }
         internal static List<Adoption> GetPendingAdoptions()
@@ -150,11 +151,12 @@ namespace HumaneSociety
             {
                 adoptionFromDB.PaymentCollected = true;
                 adoptionFromDB.ApprovalStatus = "Approved";
-
+                db.SubmitChanges();
             }
             else
             {
                 adoptionFromDB.ApprovalStatus = "Denied";
+                db.SubmitChanges();
             }
         }
 
@@ -258,7 +260,6 @@ namespace HumaneSociety
                     oldDP.FoodAmountInCups = UserInterface.GetIntegerData();
                     break;
             }
-            db.DietPlans.InsertOnSubmit(oldDP);
             db.SubmitChanges();
 
         }
@@ -319,6 +320,7 @@ namespace HumaneSociety
                 animalShot.DateReceived = date;
                 animalShot.AnimalId = animal.AnimalId;
                 animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s=>s.ShotId).Single();
+                db.SubmitChanges();
             }
             
 
@@ -345,6 +347,7 @@ namespace HumaneSociety
                         int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
 
                         animalInRoom = AnimalId;
+                        db.SubmitChanges();
                     }
                 }
                 catch (Exception)
