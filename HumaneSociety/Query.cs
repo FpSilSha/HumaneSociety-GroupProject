@@ -187,7 +187,19 @@ namespace HumaneSociety
         }
         internal static void CreateEmployee()
         {
-            
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Employee newbie = new Employee();
+            newbie.FirstName = UserInterface.GetUserInputWithOutput("What is the First Name?");
+            newbie.LastName = UserInterface.GetUserInputWithOutput("What is the Last Name?");
+            newbie.UserName = UserInterface.GetUserInputWithOutput("What is the User Name?");
+            newbie.Password = UserInterface.GetUserInputWithOutput("What is the PassWord?");
+            Console.WriteLine("What is the Employee Number");
+            newbie.EmployeeNumber = UserInterface.GetIntegerData();
+            newbie.Email = UserInterface.GetUserInputWithOutput("What is your Email?");
+
+            db.Employees.InsertOnSubmit(newbie);
+            db.SubmitChanges();
+
         }
         internal static void GetEmployee()
         {
