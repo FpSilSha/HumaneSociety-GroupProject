@@ -201,9 +201,9 @@ namespace HumaneSociety
             db.SubmitChanges();
 
         }
-        internal static void GetEmployee()
+        internal static void GetEmployeeById(int EmployeeId)
         {
-
+     
         }
         internal static void UpdateEmployee()
         {

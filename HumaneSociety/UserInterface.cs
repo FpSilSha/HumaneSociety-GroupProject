@@ -10,7 +10,7 @@ namespace HumaneSociety
     {
         public static void DisplayUserOptions(List<string> options)
         {
-            foreach(string option in options)
+            foreach(var option in options)
             {
                 Console.WriteLine(option);
             }
@@ -130,6 +130,12 @@ namespace HumaneSociety
             Console.ReadLine();
         }
 
+        internal static void DisplayEmployeeInfo(Employee employee)
+        {
+            List<string> info = new List<string>() { employee.FirstName, employee.LastName, employee.UserName, employee.Password, employee.EmployeeNumber.ToString(), employee.Email };
+            DisplayUserOptions(info);
+            Console.ReadLine();
+        }
         public static void DisplayAnimalInfo(Animal animal)
         {
             Room animalRoom = Query.GetRoom(animal.AnimalId);
