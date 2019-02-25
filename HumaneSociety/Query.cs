@@ -116,10 +116,18 @@ namespace HumaneSociety
         }
         internal static void Adopt(Animal animal, Client client)
         {
-           //I need adoption fee to be sent to customer to review
-         //I need to update approvalstatus to pending
-         //I need to 
-           
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Adoption adoption = new Adoption();
+            adoption.Client = client;
+            adoption.ApprovalStatus = "Pending";
+            animal.AdoptionStatus = "Pending";
+            if (UserInterface.GetBitData("The adoption fee is $75 and by agreeing to this adoption you are commiting to this payment. Should this adoption be processed?"))
+            {
+                adoption.AdoptionFee = 75;
+                db.SubmitChanges();
+            }
+
+
         }
         internal static List<Adoption> GetPendingAdoptions()
         {
