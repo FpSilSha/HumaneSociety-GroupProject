@@ -235,9 +235,11 @@ namespace HumaneSociety
         }
         internal static List<AnimalShot> GetShots(Animal animal)
         {
-            List<AnimalShot> animals = new List<AnimalShot>();
-
-            return animals;
+                HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+                List<AnimalShot> animalShots = new List<AnimalShot>();
+                animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId).ToList();
+            
+            return animalShots;
         }
         internal static void UpdateShot(string booster, Animal animal)
         {
@@ -261,6 +263,7 @@ namespace HumaneSociety
                 animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s=>s.ShotId).Single();
             }
             
+
         }
         internal static Room GetRoom(int AnimalId)
         {
