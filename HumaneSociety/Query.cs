@@ -198,7 +198,9 @@ namespace HumaneSociety
             string input = UserInterface.GetUserInputWithOutput("What would you like to name this new species?");
             newCategory.Name = input;
             db.Categories.InsertOnSubmit(newCategory);
+            db.SubmitChanges();
             int category = db.Categories.Where(c => c.Name == input).Select(c => c.CategoryId).Single();
+            
             return category;
         }
         internal static Animal GetAnimalByID(int AnimalId, string name)
