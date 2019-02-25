@@ -268,12 +268,36 @@ namespace HumaneSociety
         internal static Room GetRoom(int AnimalId)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Room room = new Room();
             Room currentRoom=db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
             //switched return to be specifically current room number (int) but program specifically want Room
             //int? roomNumber = currentRoom.RoomId;
             //return roomNumber;
             return currentRoom;
+        }
+        internal static void UpdateRoom(int AnimalId)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            if (UserInterface.GetBitData($"Would you like to modify the room that {db.Animals.Where(a => a.AnimalId == AnimalId).Select(a => a.Name).Single()} is being kept?"))
+            {
+                Console.WriteLine($"What room are you moving {db.Animals.Where(a => a.AnimalId == AnimalId).Select(a => a.Name).Single()} to?");
+                int roomNumber=Convert.ToInt32(Console.ReadLine());
+                int? currentRoomNumber=db.Rooms.Where(r => r.AnimalId == AnimalId).Select(r=>r.RoomNumber).Single();
+                bool roomTransferExistence=db.Rooms.Select(r => r.RoomNumber == roomNumber).Single();
+                try
+                {
+                    if (roomTransferExistence == true && roomNumber != currentRoomNumber)
+                    {
+                        int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
+
+                        animalInRoom = AnimalId;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    Console.WriteLine("This room is either the current room or does not exist./n Please try a different room number");
+                }
+            }
         }
     }
 
