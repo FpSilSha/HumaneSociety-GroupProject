@@ -168,14 +168,18 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions(shotInfo);
                 if(UserInterface.GetBitData("Would you like to Update shots?"))
                 {
-                    Query.UpdateShot("booster", animal);
+                    Console.WriteLine("What is the name of the shot?");
+                    string booster = Console.ReadLine();
+                    Query.UpdateShot(booster, animal);
                 }
             }
             else
             {
                 if (UserInterface.GetBitData("Would you like to Update shots?"))
                 {
-                    Query.UpdateShot("booster", animal);
+                    Console.WriteLine("What is the name of the shot?");
+                    string booster = Console.ReadLine();
+                    Query.UpdateShot(booster, animal);
                 }
             }
             
