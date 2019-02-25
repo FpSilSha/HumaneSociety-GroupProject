@@ -34,10 +34,11 @@ namespace HumaneSociety
         }
         protected void RunInput(string input)
         {
-            Delegate_Crud crud_Delegate;
+            Delegate_Crud crud_Delegate = null;
             if (input == "1" || input.ToLower() == "create")
             {
                 crud_Delegate = AddEmployee;
+                
                 RunUserMenus();
             }
             else if(input == "2" || input.ToLower() == "delete")
@@ -60,15 +61,17 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Input not recognized please try again or type exit");
                 RunUserMenus();
             }
-          
+          crud_Delegate();
         }
 
         private void UpdateEmployee()
         {
             Employee employee = new Employee();
+            // Doesn't actually set PK EmployeeId. Temporarily sets it to find it in updateEmployeeFromDb
+            employee.EmployeeId = int.Parse(UserInterface.GetUserInputWithOutput("What is the Unique Id you wish send these updates to?"));
             employee.FirstName = UserInterface.GetStringData("first name", "the employee's");
             employee.LastName = UserInterface.GetStringData("last name", "the employee's");
-            employee.EmployeeId = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+            employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
             employee.Email = UserInterface.GetStringData("email", "the employee's");
             try
             {

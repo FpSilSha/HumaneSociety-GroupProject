@@ -198,11 +198,15 @@ namespace HumaneSociety
             UserInterface.DisplayEmployeeInfo(employee);
 
         }
-        internal static void UpdateEmployee(int employeeId)
+        internal static void UpdateEmployeeFromDB(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Employee employee = db.Employees.Where(e => e.EmployeeId == employeeId).Single();
-
+            Employee employeeFromDB = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();
+            employeeFromDB.FirstName = employee.FirstName;
+            employeeFromDB.LastName = employee.LastName;
+            employeeFromDB.EmployeeNumber = employee.EmployeeNumber;
+            employeeFromDB.Email = employee.Email;
+            db.SubmitChanges();
         }
         internal static void DeleteEmployee()
         {
@@ -222,7 +226,7 @@ namespace HumaneSociety
                     break;
 
                 case "update":
-
+                    UpdateEmployeeFromDB(employee);
                     break;
 
                 case "delete":
