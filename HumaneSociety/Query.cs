@@ -218,6 +218,35 @@ namespace HumaneSociety
             int dietId = db.DietPlans.Where(d => d.Name == name).Select(d => d.DietPlanId).Single();
             return dietId;
         }
+        public static void UpdateDietPlan(int dietPlanId)
+        {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            DietPlan oldDP = db.DietPlans.Where(d => d.DietPlanId == dietPlanId).Single();
+            Console.WriteLine("What would you like to change? \n Diet Name = 1 \n Food Type = 2 \n Amount of food in cups = 3 \n All = 4");
+            int decision = UserInterface.GetIntegerData();
+            switch (decision)
+            {
+                case 1:
+                    oldDP.Name = UserInterface.GetUserInputWithOutput($"\nCurrent Diet Plan Name is {oldDP.Name}. What would you like to rename it to?");
+                    break;
+                case 2:
+                    oldDP.FoodType = UserInterface.GetUserInputWithOutput($"\nCurrent Diet Plan Food Type is {oldDP.FoodType}. What would you like to change it to?");
+                    break;
+                case 3:
+                    Console.WriteLine($"\nCurrent Diet Plan Cups of Food Amount is {oldDP.FoodAmountInCups} What would you like to change it to?");
+                    oldDP.FoodAmountInCups = UserInterface.GetIntegerData();
+                    break;
+                case 4:
+                    oldDP.Name = UserInterface.GetUserInputWithOutput($"Current Diet Plan Name is {oldDP.Name}. What would you like to rename it to?");
+                    oldDP.FoodType = UserInterface.GetUserInputWithOutput($"\nCurrent Diet Plan Food Type is {oldDP.FoodType}. What would you like to change it to?");
+                    Console.WriteLine($"\nCurrent Diet Plan Cups of Food Amount is {oldDP.FoodAmountInCups} What would you like to change it to?");
+                    oldDP.FoodAmountInCups = UserInterface.GetIntegerData();
+                    break;
+            }
+            db.DietPlans.InsertOnSubmit(oldDP);
+            db.SubmitChanges();
+
+        }
         public static void CreateNewDietPlan()
         {
 
