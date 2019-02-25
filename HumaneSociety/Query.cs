@@ -280,10 +280,12 @@ namespace HumaneSociety
         internal static Room GetRoom(int AnimalId)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-
             Room room = new Room();
-
-            return room;
+            Room currentRoom=db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
+            //switched return to be specifically current room number (int) but program specifically want Room
+            //int? roomNumber = currentRoom.RoomId;
+            //return roomNumber;
+            return currentRoom;
         }
     }
 
