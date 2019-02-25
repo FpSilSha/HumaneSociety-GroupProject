@@ -343,6 +343,7 @@ namespace HumaneSociety
             tempAnimal.PetFriendly = animal.PetFriendly;
             tempAnimal.Gender = animal.Gender;
             tempAnimal.AdoptionStatus = animal.AdoptionStatus;
+            db.SubmitChanges();
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
