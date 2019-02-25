@@ -106,8 +106,12 @@ namespace HumaneSociety
 
         private void RemoveEmployee()
         {
-            Employee employee = new Employee();
-            employee.LastName = UserInterface.GetStringData("last name", "the employee's"); ;
+            Employee employee = new Employee
+            {
+                EmployeeId = int.Parse(UserInterface.GetUserInputWithOutput("What is the Unique Id you wish send these updates to?"))
+                
+            };
+            
             employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
             try
             {

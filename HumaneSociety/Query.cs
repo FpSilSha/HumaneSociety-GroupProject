@@ -208,9 +208,12 @@ namespace HumaneSociety
             employeeFromDB.Email = employee.Email;
             db.SubmitChanges();
         }
-        internal static void DeleteEmployee()
+        internal static void DeleteEmployee(Employee employee)
         {
-
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Employee employeefromDB = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();
+            db.Employees.DeleteOnSubmit(employeefromDB);
+            db.SubmitChanges();
         }
         internal static void RunEmployeeQueries(Employee employee, string words)
         {
@@ -230,7 +233,7 @@ namespace HumaneSociety
                     break;
 
                 case "delete":
-
+                    DeleteEmployee(employee);
                     break;
 
             }
