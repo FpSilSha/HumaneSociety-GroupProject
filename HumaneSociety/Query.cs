@@ -211,10 +211,24 @@ namespace HumaneSociety
 
             return animal;
         }
-        public static int GetDietPlanId()
+        public static int GetDietPlanId(string name)
         {
-            //this is an empty method with a dummy return to remove an error. FIX
-            return 6;
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            int dietId = db.DietPlans.Where(d => d.Name == name).Select(d => d.DietPlanId).Single();
+            return dietId;
+        }
+        public static void CreateNewDietPlan()
+        {
+
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            DietPlan newDP = new DietPlan();
+            newDP.Name = UserInterface.GetUserInputWithOutput("What do you want to name this diet? E.X. 'Dog Diet'");
+            newDP.FoodType = UserInterface.GetUserInputWithOutput("What type of food is this diet? E.X. 'Dog Food'");
+            newDP.FoodAmountInCups = Convert.ToInt16(UserInterface.GetUserInputWithOutput("How much food, in cups, would you like to add as the standard? E.X. '5'"));
+            db.DietPlans.InsertOnSubmit(newDP);
+            db.SubmitChanges();
+            
         }
         internal static List<Animal> SearchForAnimalByMultipleTraits()
         {
