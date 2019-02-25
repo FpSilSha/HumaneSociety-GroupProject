@@ -211,10 +211,12 @@ namespace HumaneSociety
 
             return animal;
         }
-        public static int GetDietPlanId()
+        public static int GetDietPlanId(string name)
         {
-            //this is an empty method with a dummy return to remove an error. FIX
-            return 6;
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            int dietId = db.DietPlans.Where(d => d.Name == name).Select(d => d.DietPlanId).Single();
+            return dietId;
         }
         public static void CreateNewDietPlan()
         {
