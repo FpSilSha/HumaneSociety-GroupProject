@@ -350,6 +350,7 @@ namespace HumaneSociety
             tempAnimal.PetFriendly = animal.PetFriendly;
             tempAnimal.Gender = animal.Gender;
             tempAnimal.AdoptionStatus = animal.AdoptionStatus;
+            db.Animals.InsertOnSubmit(tempAnimal);
             db.SubmitChanges();
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
@@ -358,7 +359,10 @@ namespace HumaneSociety
         }
         internal static void RemoveAnimal(Animal animal)
         {
-            //Delete
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Animal animalToDelete = db.Animals.Where(a => a.AnimalId == animal.AnimalId).Single();
+            db.Animals.DeleteOnSubmit(animalToDelete);
+            db.SubmitChanges();
         }
         internal static List<AnimalShot> GetShots(Animal animal)
         {
