@@ -336,9 +336,54 @@ namespace HumaneSociety
         internal static List<Animal> SearchForAnimalByMultipleTraits()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            Animal tempAnimal = new Animal();
+            tempAnimal.AdoptionStatus = "Available";
+            string traitToSearch = null;
+            do
+            {
+                Console.WriteLine("Type a(nother) search criteria n/ Type 'finished' when done.");
+                traitToSearch = Console.ReadLine().ToLower();
+                switch (traitToSearch)
+                {
+                    case "name":
+                        Console.WriteLine("What name are you searching for?");
+                        tempAnimal.Name = Console.ReadLine();
+                        db.Animals.Where(a => a.Name == tempAnimal.Name).ToList();
+                        break;
+                    case "weight":
+                        Console.WriteLine("What weight are you searching for?");
+                        tempAnimal.Weight = Convert.ToInt16(Console.ReadLine());
+                        db.Animals.Where(a => a.Weight == tempAnimal.Weight).ToList();
+                        break;
+                    case "age":
+                        Console.WriteLine("What age are you searching for?");
+                        tempAnimal.Age = Convert.ToInt16(Console.ReadLine());
+                        db.Animals.Where(a => a.Age == tempAnimal.Age).ToList();
+                        break;
+                    case "demeanor":
+                        Console.WriteLine("What demeanor are you looking for?");
+                        tempAnimal.Demeanor = Console.ReadLine();
+                        db.Animals.Where(a => a.Demeanor == tempAnimal.Demeanor).ToList();
+                        break;
+                    case "kid friendly":
+                        tempAnimal.KidFriendly = true;
+                        db.Animals.Where(a => a.KidFriendly == tempAnimal.KidFriendly).ToList();
+                        break;
+                    case "pet friendly":
+                        tempAnimal.PetFriendly = true;
+                        db.Animals.Where(a => a.PetFriendly == tempAnimal.PetFriendly).ToList();
+                        break;
+                    case "gender":
+                        Console.WriteLine("What gender are you searching for?");
+                        tempAnimal.Gender = Console.ReadLine();
+                        db.Animals.Where(a => a.Gender == tempAnimal.Gender).ToList();
+                        break;
+                }
+            }
+            while (traitToSearch != "finished" || traitToSearch != "done");
             
-            List<Animal> animal = new List<Animal>();
-            return animal;
+            List<Animal> animalList = new List<Animal>();
+            return animalList;
         }
         internal static void AddAnimal(Animal animal)
         {
@@ -441,8 +486,6 @@ namespace HumaneSociety
                 db.AnimalShots.InsertOnSubmit(animalShot);
                 db.SubmitChanges();
             }
-            
-
         }
         internal static Room GetRoom(int AnimalId)
         {
