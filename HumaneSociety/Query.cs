@@ -355,19 +355,50 @@ namespace HumaneSociety
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
-
-            //grab Dictionary key call from updates and add it to Animal parameter 
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            //grab Dictionary key call from updates and add it to Animal parameter 
+            if (updates.ContainsKey(1))
+            {
+                var name = updates.Where(u => u.Key == 1).Select(u => u.Value).Single();
+                animal.Name = name;
+            }
+            if (updates.ContainsKey(2))
+            {
+                var weight = Convert.ToInt16(updates.Where(u => u.Key == 2).Select(u => u.Value).Single());
+                animal.Weight = weight;
+            }
+            if (updates.ContainsKey(3))
+            {
+                var age = Convert.ToInt16(updates.Where(u => u.Key == 3).Select(u => u.Value).Single());
+                animal.Age = age;
+            }
+            if (updates.ContainsKey(4))
+            {
+                var demeanor = updates.Where(u => u.Key == 4).Select(u => u.Value).Single();
+                animal.Demeanor = demeanor;
+            }
+            if (updates.ContainsKey(5))
+            {
+                var kidFriendly = Convert.ToBoolean(updates.Where(u => u.Key == 5).Select(u => u.Value).Single());
+                animal.KidFriendly = kidFriendly;
+            }
+            if (updates.ContainsKey(6))
+            {
+                var petFriendly = Convert.ToBoolean(updates.Where(u => u.Key == 6).Select(u => u.Value).Single());
+                animal.PetFriendly = petFriendly;
+            }
+            if (updates.ContainsKey(7))
+            {
+                var gender = updates.Where(u => u.Key == 7).Select(u => u.Value).Single();
+                animal.Gender = gender;
+            }
+            if (updates.ContainsKey(8))
+            {
+                var adoptionStatus = updates.Where(u => u.Key == 8).Select(u => u.Value).Single();
+                animal.AdoptionStatus = adoptionStatus;
+            }
 
-            //animal.Name = updates.Where(u => u.);
-            //animal.Weight = updates[];
-            //animal.Age = updates[];
-            //animal.Demeanor = animal.Demeanor;
-            //animal.KidFriendly = animal.KidFriendly;
-            //animal.PetFriendly = animal.PetFriendly;
-            //animal.Gender = animal.Gender;
-            //animal.AdoptionStatus = animal.AdoptionStatus;
-            //db.SubmitChanges();
+            db.SubmitChanges();
 
         }
         internal static void RemoveAnimal(Animal animal)
