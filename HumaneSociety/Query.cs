@@ -335,6 +335,8 @@ namespace HumaneSociety
         }
         internal static List<Animal> SearchForAnimalByMultipleTraits()
         {
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+            
             List<Animal> animal = new List<Animal>();
             return animal;
         }
@@ -405,6 +407,7 @@ namespace HumaneSociety
                 animalShot.DateReceived = date;
                 animalShot.AnimalId = animal.AnimalId;
                 animalShot.ShotId = db.Shots.Where(s => s.Name == booster).Select(s=>s.ShotId).Single();
+                db.AnimalShots.InsertOnSubmit(animalShot);
                 db.SubmitChanges();
             }
             
