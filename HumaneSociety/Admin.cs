@@ -34,26 +34,26 @@ namespace HumaneSociety
         }
         protected void RunInput(string input)
         {
-            Delegate_Crud crud_Delegate = null;
+            Delegate_Crud EmployeeQueries = null;
             if (input == "1" || input.ToLower() == "create")
             {
-                crud_Delegate = AddEmployee;
+                EmployeeQueries = AddEmployee;
                 
                 RunUserMenus();
             }
             else if(input == "2" || input.ToLower() == "delete")
             {
-                crud_Delegate = RemoveEmployee;
+                EmployeeQueries = RemoveEmployee;
                 RunUserMenus();
             }
             else if(input == "3" || input.ToLower() == "read")
             {
-                crud_Delegate = ReadEmployee;
+                EmployeeQueries = ReadEmployee;
                 RunUserMenus();
             }
             else if (input == "4" || input.ToLower() == "update")
             {
-                crud_Delegate = UpdateEmployee;
+                EmployeeQueries = UpdateEmployee;
                 RunUserMenus();
             }
             else
@@ -61,7 +61,7 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Input not recognized please try again or type exit");
                 RunUserMenus();
             }
-          crud_Delegate();
+            EmployeeQueries();
         }
 
         private void UpdateEmployee()
