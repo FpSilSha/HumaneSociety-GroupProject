@@ -356,6 +356,19 @@ namespace HumaneSociety
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
 
+            //grab Dictionary key call from updates and add it to Animal parameter 
+            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+
+            //animal.Name = updates.Where(u => u.);
+            //animal.Weight = updates[];
+            //animal.Age = updates[];
+            //animal.Demeanor = animal.Demeanor;
+            //animal.KidFriendly = animal.KidFriendly;
+            //animal.PetFriendly = animal.PetFriendly;
+            //animal.Gender = animal.Gender;
+            //animal.AdoptionStatus = animal.AdoptionStatus;
+            //db.SubmitChanges();
+
         }
         internal static void RemoveAnimal(Animal animal)
         {
