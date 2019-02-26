@@ -212,6 +212,11 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             Employee employeefromDB = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();
+            List<Animal> animalsAffected = db.Animals.Where(a => a.EmployeeId == employee.EmployeeId).ToList();
+            foreach(Animal animal in animalsAffected)
+            {
+                animal.EmployeeId = null;
+            }
             db.Employees.DeleteOnSubmit(employeefromDB);
             db.SubmitChanges();
         }
@@ -336,54 +341,114 @@ namespace HumaneSociety
         internal static List<Animal> SearchForAnimalByMultipleTraits()
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Animal tempAnimal = new Animal();
-            tempAnimal.AdoptionStatus = "Available";
             string traitToSearch = null;
+            List<Animal> allAnimals = db.Animals.ToList();
+           
+            
             do
             {
-                Console.WriteLine("Type a(nother) search criteria n/ Type 'finished' when done.");
+                Console.WriteLine("Type a(nother) search criteria n/ Type 'finished' when done. \n\n Search criteria are : name, weight, age, demeanor, kid friendly, pet friendly, gender, and adoption status");
                 traitToSearch = Console.ReadLine().ToLower();
                 switch (traitToSearch)
                 {
                     case "name":
+                        string Name = Console.ReadLine();
                         Console.WriteLine("What name are you searching for?");
-                        tempAnimal.Name = Console.ReadLine();
-                        db.Animals.Where(a => a.Name == tempAnimal.Name).ToList();
+                        
+                        foreach(Animal animal in allAnimals)
+                        {
+                            if(animal.Name.ToLower() != Name.ToLower())
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
+                       Name = Console.ReadLine();
                         break;
                     case "weight":
                         Console.WriteLine("What weight are you searching for?");
-                        tempAnimal.Weight = Convert.ToInt16(Console.ReadLine());
-                        db.Animals.Where(a => a.Weight == tempAnimal.Weight).ToList();
+                        int weight = Convert.ToInt16(Console.ReadLine());
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.Weight != weight)
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
                         break;
                     case "age":
                         Console.WriteLine("What age are you searching for?");
-                        tempAnimal.Age = Convert.ToInt16(Console.ReadLine());
-                        db.Animals.Where(a => a.Age == tempAnimal.Age).ToList();
+                        int age = Convert.ToInt16(Console.ReadLine());
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.Age != age)
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
                         break;
                     case "demeanor":
                         Console.WriteLine("What demeanor are you looking for?");
-                        tempAnimal.Demeanor = Console.ReadLine();
-                        db.Animals.Where(a => a.Demeanor == tempAnimal.Demeanor).ToList();
+                        string demeanor = Console.ReadLine();
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.Demeanor.ToLower() != demeanor.ToLower())
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
+                        
+                      
                         break;
                     case "kid friendly":
-                        tempAnimal.KidFriendly = true;
-                        db.Animals.Where(a => a.KidFriendly == tempAnimal.KidFriendly).ToList();
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.KidFriendly != true)
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
+                        
+                    
                         break;
                     case "pet friendly":
-                        tempAnimal.PetFriendly = true;
-                        db.Animals.Where(a => a.PetFriendly == tempAnimal.PetFriendly).ToList();
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.PetFriendly != true)
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
+                        
+                     
                         break;
                     case "gender":
                         Console.WriteLine("What gender are you searching for?");
-                        tempAnimal.Gender = Console.ReadLine();
-                        db.Animals.Where(a => a.Gender == tempAnimal.Gender).ToList();
+                        string gender = Console.ReadLine();
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.Gender != gender.ToLower())
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
+                        break;
+                    case "adoption status":
+                        Console.WriteLine("What adoption status are you searching for?");
+                        string adoptionStatus = Console.ReadLine();
+                        foreach (Animal animal in allAnimals)
+                        {
+                            if (animal.AdoptionStatus.ToLower() != adoptionStatus.ToLower())
+                            {
+                                allAnimals.Remove(animal);
+                            }
+                        }
                         break;
                 }
             }
-            while (traitToSearch != "finished" || traitToSearch != "done");
+            while (traitToSearch != "finished" && traitToSearch != "done");
             
-            List<Animal> animalList = new List<Animal>();
-            return animalList;
+            
+            return allAnimals;
         }
         internal static void AddAnimal(Animal animal)
         {
