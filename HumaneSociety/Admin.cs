@@ -27,7 +27,7 @@ namespace HumaneSociety
         protected override void RunUserMenus()
         {
             Console.Clear();
-            List<string> options = new List<string>() { "Admin log in successful.", "What would you like to do?", "1. Create new employee", "2. Delete employee", "3. Read employee info ", "4. Update emplyee info", "(type 1, 2, 3, 4,  create, read, update, or delete)" };
+            List<string> options = new List<string>() { "Admin log in successful.", "What would you like to do?", "1. Create new employee", "2. Delete employee", "3. Read employee info ", "4. Update emplyee info", "(type 1, 2, 3, 4,  create, delete, read, or update)" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunInput(input);
@@ -35,33 +35,38 @@ namespace HumaneSociety
         protected void RunInput(string input)
         {
             Delegate_Crud EmployeeQueries = null;
-            if (input == "1" || input.ToLower() == "create")
+            try
             {
-                EmployeeQueries = AddEmployee;
-                
-                
+              
+                if (input == "1" || input.ToLower() == "create")
+                {
+                    EmployeeQueries = AddEmployee;
+
+
+                }
+                else if (input == "2" || input.ToLower() == "delete")
+                {
+                    EmployeeQueries = RemoveEmployee;
+
+                }
+                else if (input == "3" || input.ToLower() == "read")
+                {
+                    EmployeeQueries = ReadEmployee;
+
+                }
+                else if (input == "4" || input.ToLower() == "update")
+                {
+                    EmployeeQueries = UpdateEmployee;
+
+                }
+                EmployeeQueries();
             }
-            else if(input == "2" || input.ToLower() == "delete")
+            catch(NullReferenceException)
             {
-                EmployeeQueries = RemoveEmployee;
-                
+                    UserInterface.DisplayUserOptions("Input not recognized please try again or type exit. Press any key to continue.");
+                Console.ReadKey();
             }
-            else if(input == "3" || input.ToLower() == "read")
-            {
-                EmployeeQueries = ReadEmployee;
-               
-            }
-            else if (input == "4" || input.ToLower() == "update")
-            {
-                EmployeeQueries = UpdateEmployee;
-               
-            }
-            else
-            {
-                UserInterface.DisplayUserOptions("Input not recognized please try again or type exit");
-                
-            }
-            EmployeeQueries();
+            
             RunUserMenus();
         }
 
