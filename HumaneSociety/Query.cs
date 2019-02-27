@@ -555,16 +555,9 @@ namespace HumaneSociety
         internal static Room GetRoom(int AnimalId)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            try
-            {
-                Room currentRoom = db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
-                return currentRoom;
-            }
-            catch
-            {
-                Room currentRoom = null;
-                return currentRoom;
-            }
+            Room currentRoom = db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
+            return currentRoom;
+        
         }
         internal static void UpdateRoom(int AnimalId)
         {
@@ -587,7 +580,6 @@ namespace HumaneSociety
                 }
                 catch (Exception)
                 {
-
                     Console.WriteLine("This room is either the current room or does not exist./n Please try a different room number");
                 }
             }
