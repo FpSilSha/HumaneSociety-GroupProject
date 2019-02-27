@@ -265,7 +265,9 @@ namespace HumaneSociety
             animal.PetFriendly = UserInterface.GetBitData("the animal", "pet friendly");
             animal.Weight = UserInterface.GetIntegerData("the animal", "the weight of the");
             animal.DietPlanId = Query.GetDietPlanId(UserInterface.GetUserInputWithOutput("Name of Diet? E.X. 'Dog Diet;"));
-            Query.AddAnimal(animal);
+            animal.Gender = UserInterface.GetStringData("gender", "the animal's");
+            animal.AdoptionStatus = UserInterface.GetStringData("adoption status", "the animal's");
+
         }
         protected override void LogInPreExistingUser()
         {
