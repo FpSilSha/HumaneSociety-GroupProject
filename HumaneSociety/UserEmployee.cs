@@ -285,10 +285,11 @@ namespace HumaneSociety
         private void CreateNewEmployee()
         {
             Console.Clear();
-            string email = UserInterface.GetStringData("email", "your");
-            int employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "your"));
             try
             {
+                string email = UserInterface.GetStringData("email", "your");
+                int employeeNumber = int.Parse(UserInterface.GetStringData("employee number", "your"));
+
                 employee = Query.RetrieveEmployeeUser(email, employeeNumber);
             }
             catch
