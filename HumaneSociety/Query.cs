@@ -505,6 +505,10 @@ namespace HumaneSociety
                 var adoptionStatus = updates.Where(u => u.Key == 8).Select(u => u.Value).Single();
                 animal.AdoptionStatus = adoptionStatus;
             }
+            if (updates.ContainsKey(9))
+            {
+                UpdateRoom(animal.AnimalId);
+            }
 
             db.SubmitChanges();
 

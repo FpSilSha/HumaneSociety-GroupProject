@@ -26,17 +26,6 @@ namespace HumaneSociety.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=.;Initial Catalog=HumaneSociety;Integrated Security=True;Encrypt=Fals" +
-            "e;TrustServerCertificate=True")]
-        public string HumaneSocietyConnectionString {
-            get {
-                return ((string)(this["HumaneSocietyConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HumaneSociety;Integrated Secur" +
             "ity=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True")]
         public string HumaneSocietyConnectionString1 {
@@ -87,6 +76,18 @@ namespace HumaneSociety.Properties {
         public string HumaneSocietyConnectionString4 {
             get {
                 return ((string)(this["HumaneSocietyConnectionString4"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=LAPTOP-09URQQOG;Initial Catalog=HumaneSociety;Integrated Security=Tru" +
+            "e;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationInten" +
+            "t=ReadWrite;MultiSubnetFailover=False")]
+        public string HumaneSocietyConnectionString {
+            get {
+                return ((string)(this["HumaneSocietyConnectionString"]));
             }
         }
     }

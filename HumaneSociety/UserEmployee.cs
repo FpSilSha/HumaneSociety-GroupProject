@@ -197,10 +197,10 @@ namespace HumaneSociety
             {
                 updates = new Dictionary<int, string>();
             }
-            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. Finished" };
+            List<string> options = new List<string>() { "Select Updates: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. Room", "9. finished" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
-            if(input.ToLower() == "8" ||input.ToLower() == "finished")
+            if(input.ToLower() == "9" ||input.ToLower() == "finished")
             {
                 Query.EnterAnimalUpdate(animal, updates);
             }
@@ -271,7 +271,7 @@ namespace HumaneSociety
             Employee emp = new Employee();
             emp.EmployeeNumber = Convert.ToInt16(UserInterface.GetUserInputWithOutput("What is your employee number?"));
             animal.EmployeeId = db.Employees.Where(e => e.EmployeeNumber == emp.EmployeeNumber).Select(e => e.EmployeeId).Single();
-
+           // animal.Rooms = 
         }
         protected override void LogInPreExistingUser()
         {

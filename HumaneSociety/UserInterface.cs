@@ -90,7 +90,15 @@ namespace HumaneSociety
         {
             foreach(Animal animal in animals)
             {
-                Console.WriteLine(animal.AnimalId + " " + animal.Name + " " + animal.Category.Name);
+                try
+                {
+                    Console.WriteLine(animal.AnimalId + " " + animal.Name + " " + animal.Category.Name);
+                }
+                catch (NullReferenceException)
+                {
+                    Console.WriteLine($"\n\n\n********{animal.AnimalId} {animal.Name} doesn't have all needed values to show! \n********Removed from list. \n********Please update Null values!");
+                    Console.ReadKey();
+                }
             }
         }
 
