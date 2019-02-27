@@ -27,7 +27,7 @@ namespace HumaneSociety
         protected override void RunUserMenus()
         {
             Console.Clear();
-            List<string> options = new List<string>() { "Admin log in successful.", "What would you like to do?", "1. Create new employee", "2. Delete employee", "3. Read employee info ", "4. Update emplyee info", "(type 1, 2, 3, 4,  create, delete, read, or update)" };
+            List<string> options = new List<string>() { "Admin log in successful.", "What would you like to do?", "1. Create new employee", "2. Update emplyee info", "3. Read employee info ", "4. Delete employee", "(type 1, 2, 3, 4,  create, read, update, or delete )" };
             UserInterface.DisplayUserOptions(options);
             string input = UserInterface.GetUserInput();
             RunInput(input);
@@ -41,12 +41,11 @@ namespace HumaneSociety
                 if (input == "1" || input.ToLower() == "create")
                 {
                     EmployeeQueries = AddEmployee;
-
-
+                    
                 }
-                else if (input == "2" || input.ToLower() == "delete")
+                else if (input == "2" || input.ToLower() == "update")
                 {
-                    EmployeeQueries = RemoveEmployee;
+                    EmployeeQueries = UpdateEmployee;
 
                 }
                 else if (input == "3" || input.ToLower() == "read")
@@ -54,9 +53,9 @@ namespace HumaneSociety
                     EmployeeQueries = ReadEmployee;
 
                 }
-                else if (input == "4" || input.ToLower() == "update")
+                else if (input == "4" || input.ToLower() == "delete")
                 {
-                    EmployeeQueries = UpdateEmployee;
+                    EmployeeQueries = RemoveEmployee;
 
                 }
                 EmployeeQueries();
