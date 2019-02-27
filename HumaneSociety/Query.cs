@@ -195,7 +195,7 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             Employee employeeFromDb = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber).Single();
-            UserInterface.DisplayEmployeeInfo(employee);
+            UserInterface.DisplayEmployeeInfo(employeeFromDb);
 
         }
         internal static void UpdateEmployeeFromDB(Employee employee)
