@@ -92,8 +92,6 @@ namespace HumaneSociety
             }
         }
 
-
-
         private void ReadEmployee()
         {
             try
