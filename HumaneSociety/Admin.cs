@@ -39,29 +39,30 @@ namespace HumaneSociety
             {
                 EmployeeQueries = AddEmployee;
                 
-                RunUserMenus();
+                
             }
             else if(input == "2" || input.ToLower() == "delete")
             {
                 EmployeeQueries = RemoveEmployee;
-                RunUserMenus();
+                
             }
             else if(input == "3" || input.ToLower() == "read")
             {
                 EmployeeQueries = ReadEmployee;
-                RunUserMenus();
+               
             }
             else if (input == "4" || input.ToLower() == "update")
             {
                 EmployeeQueries = UpdateEmployee;
-                RunUserMenus();
+               
             }
             else
             {
                 UserInterface.DisplayUserOptions("Input not recognized please try again or type exit");
-                RunUserMenus();
+                
             }
             EmployeeQueries();
+            RunUserMenus();
         }
 
         private void UpdateEmployee()
