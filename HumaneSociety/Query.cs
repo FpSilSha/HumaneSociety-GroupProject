@@ -182,8 +182,12 @@ namespace HumaneSociety
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
 
             Employee employeeWithUserName = db.Employees.Where(e => e.UserName == userName).FirstOrDefault();
-
-            return employeeWithUserName == null;
+            bool conditional = true;
+            if (employeeWithUserName == null)
+            {
+                conditional = false;
+            }
+            return conditional;
         }
         internal static void CreateEmployee(Employee employee)
         {

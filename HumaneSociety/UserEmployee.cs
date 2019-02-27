@@ -329,6 +329,7 @@ namespace HumaneSociety
             if (Query.CheckEmployeeUserNameExist(username))
             {
                 UserInterface.DisplayUserOptions("Username already in use please try another username.");
+                Console.ReadKey();
                 GetUserName();
             }
             else
