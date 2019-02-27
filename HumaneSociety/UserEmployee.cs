@@ -64,9 +64,9 @@ namespace HumaneSociety
             List<string> adoptionInfo = new List<string>();
             int counter = 1;
             var adoptions = Query.GetPendingAdoptions().ToList();
-            if(adoptions.Count > 0)
+            if (adoptions.Count > 0)
             {
-                foreach(Adoption adoption in adoptions)
+                foreach (Adoption adoption in adoptions)
                 {
                     adoptionInfo.Add($"{counter}. {adoption.Client.FirstName} {adoption.Client.LastName}, {adoption.Animal.Name} {adoption.Animal.Category}");
                     counter++;
@@ -75,6 +75,12 @@ namespace HumaneSociety
                 UserInterface.DisplayUserOptions("Enter the number of the adoption you would like to approve");
                 int input = UserInterface.GetIntegerData();
                 ApproveAdoption(adoptions[input - 1]);
+            }
+            else
+            {
+                Console.WriteLine("\n\nNo animals pending adoption found! Press any key to return.");
+                Console.ReadKey();
+                Console.Clear();
             }
 
         }
