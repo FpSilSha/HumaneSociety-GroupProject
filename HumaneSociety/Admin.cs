@@ -72,13 +72,15 @@ namespace HumaneSociety
 
         private void UpdateEmployee()
         {
-            Employee employee = new Employee();
-            // Doesn't actually set PK EmployeeId. Temporarily sets it to find it in updateEmployeeFromDb
-            employee.EmployeeId = int.Parse(UserInterface.GetUserInputWithOutput("What is the Unique Id you wish send these updates to?"));
-            employee.FirstName = UserInterface.GetStringData("first name", "the employee's");
-            employee.LastName = UserInterface.GetStringData("last name", "the employee's");
-            employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
-            employee.Email = UserInterface.GetStringData("email", "the employee's");
+            Employee employee = new Employee
+            {
+                // Doesn't actually set PK EmployeeId. Temporarily sets it to find it in updateEmployeeFromDb
+                EmployeeId = int.Parse(UserInterface.GetUserInputWithOutput("What is the Unique Id you wish send these updates to?")),
+                FirstName = UserInterface.GetStringData("first name", "the employee's"),
+                LastName = UserInterface.GetStringData("last name", "the employee's"),
+                EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's")),
+                Email = UserInterface.GetStringData("email", "the employee's")
+            };
             try
             {
                 Query.RunEmployeeQueries(employee, "update");
