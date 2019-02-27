@@ -211,7 +211,7 @@ namespace HumaneSociety
         internal static void DeleteEmployee(Employee employee)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Employee employeefromDB = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).Single();
+            Employee employeefromDB = db.Employees.Where(e => e.EmployeeNumber == employee.EmployeeNumber && e.FirstName == employee.FirstName).Single();
             List<Animal> animalsAffected = db.Animals.Where(a => a.EmployeeId == employee.EmployeeId).ToList();
             foreach(Animal animal in animalsAffected)
             {

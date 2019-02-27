@@ -114,11 +114,12 @@ namespace HumaneSociety
         {
             Employee employee = new Employee
             {
-                EmployeeId = int.Parse(UserInterface.GetUserInputWithOutput("What is the Unique Id you wish send these updates to?"))
-                
+                EmployeeNumber = int.Parse(UserInterface.GetUserInputWithOutput("What is the Employee Number you wish to look for to delete?")),
+                FirstName = UserInterface.GetUserInputWithOutput("\nSecond Verification: What is the Employee's First Name you wish to look for to delete?")
+
             };
             
-            employee.EmployeeNumber = int.Parse(UserInterface.GetStringData("employee number", "the employee's"));
+           
             try
             {
                 Console.Clear();
