@@ -351,7 +351,7 @@ namespace HumaneSociety
             
             do
             {
-                Console.WriteLine("Type a(nother) search criteria n/ Type 'finished' when done. \n\n Search criteria are : name, weight, age, demeanor, kid friendly, pet friendly, gender, and adoption status");
+                Console.WriteLine("Type a(nother) search criteria \n Type 'finished' when done. \n\n Search criteria are : name, weight, age, demeanor, kid friendly, pet friendly, gender, and adoption status");
                 traitToSearch = Console.ReadLine().ToLower();
                 switch (traitToSearch)
                 {
