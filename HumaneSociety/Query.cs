@@ -356,17 +356,9 @@ namespace HumaneSociety
                 switch (traitToSearch)
                 {
                     case "name":
-                        string Name = Console.ReadLine();
                         Console.WriteLine("What name are you searching for?");
-                        
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if(allAnimals[i].Name.ToLower() != Name.ToLower())
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
-                       Name = Console.ReadLine();
+                        string Name = Console.ReadLine();
+                        allAnimals = allAnimals.Where(a => a.Name == Name).ToList();
                         break;
                     case "weight":
                         Console.WriteLine("What weight are you searching for?");
@@ -559,8 +551,16 @@ namespace HumaneSociety
         internal static Room GetRoom(int AnimalId)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Room currentRoom=db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
-            return currentRoom;
+            try
+            {
+                Room currentRoom = db.Rooms.Where(r => r.AnimalId == AnimalId).Single();
+                return currentRoom;
+            }
+            catch
+            {
+                Room currentRoom = null;
+                return currentRoom;
+            }
         }
         internal static void UpdateRoom(int AnimalId)
         {
