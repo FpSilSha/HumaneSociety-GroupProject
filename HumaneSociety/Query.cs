@@ -359,11 +359,11 @@ namespace HumaneSociety
                         string Name = Console.ReadLine();
                         Console.WriteLine("What name are you searching for?");
                         
-                        foreach(Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if(animal.Name.ToLower() != Name.ToLower())
+                            if(allAnimals[i].Name.ToLower() != Name.ToLower())
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                        Name = Console.ReadLine();
@@ -371,55 +371,55 @@ namespace HumaneSociety
                     case "weight":
                         Console.WriteLine("What weight are you searching for?");
                         int weight = Convert.ToInt16(Console.ReadLine());
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.Weight != weight)
+                            if (allAnimals[i].Weight != weight)
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         break;
                     case "age":
                         Console.WriteLine("What age are you searching for?");
-                        int age = Convert.ToInt16(Console.ReadLine());
-                        foreach (Animal animal in allAnimals)
+                        int? age = Convert.ToInt16(Console.ReadLine());
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.Age != age)
+                            if (allAnimals[i].Age != age)
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         break;
                     case "demeanor":
                         Console.WriteLine("What demeanor are you looking for?");
                         string demeanor = Console.ReadLine();
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.Demeanor.ToLower() != demeanor.ToLower())
+                            if (allAnimals[i].Demeanor.ToLower() != demeanor.ToLower())
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         
                       
                         break;
                     case "kid friendly":
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.KidFriendly != true)
+                            if (allAnimals[i].KidFriendly != true)
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         
                     
                         break;
                     case "pet friendly":
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.PetFriendly != true)
+                            if (allAnimals[i].PetFriendly != true)
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         
@@ -428,22 +428,22 @@ namespace HumaneSociety
                     case "gender":
                         Console.WriteLine("What gender are you searching for?");
                         string gender = Console.ReadLine();
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.Gender != gender.ToLower())
+                            if (allAnimals[i].Gender != gender.ToLower())
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         break;
                     case "adoption status":
                         Console.WriteLine("What adoption status are you searching for?");
                         string adoptionStatus = Console.ReadLine();
-                        foreach (Animal animal in allAnimals)
+                        for(int i = 0; i < allAnimals.Count; i++)
                         {
-                            if (animal.AdoptionStatus.ToLower() != adoptionStatus.ToLower())
+                            if (allAnimals[i].AdoptionStatus.ToLower() != adoptionStatus.ToLower())
                             {
-                                allAnimals.Remove(animal);
+                                allAnimals.Remove(allAnimals[i]);
                             }
                         }
                         break;
