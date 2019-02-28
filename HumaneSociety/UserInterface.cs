@@ -181,29 +181,7 @@ namespace HumaneSociety
                 return false;
             }
         }
-        public static Dictionary<int, string> GetAnimalCriteria()
-        {
-            Dictionary<int, string> searchParameters = new Dictionary<int, string>();
-            bool isSearching = true;
-            while (isSearching)
-            {
-                Console.Clear();
-                List<string> options = new List<string>() { "Select Search Criteia: (Enter number and choose finished when finished)", "1. Category", "2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. ID", "9. Finished" };
-                DisplayUserOptions(options);
-                string input = GetUserInput();
-                if (input.ToLower() == "9" || input.ToLower() == "finished")
-                {
-                    isSearching = false;
-                    continue;
-                }
-                else
-                {
-                    searchParameters = EnterSearchCriteria(searchParameters, input);
-                }
-            }
-            return searchParameters;
-        }
-        public static Dictionary<int, string> EnterSearchCriteria(Dictionary<int, string> searchParameters, string input)
+        public static Dictionary<int, string> EnterSearchCriteria(Dictionary<int, string> searchParameters, string input, Animal animal)
         {
             Console.Clear();
             switch (input)

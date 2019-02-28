@@ -36,7 +36,7 @@ namespace HumaneSociety
             switch (input)
             {
                 case "1":
-                    AddAnimal();
+                    CreateAnimal();
                     RunUserMenus();
                     return;
                 case "2":
@@ -206,7 +206,7 @@ namespace HumaneSociety
             }
             else
             {
-                updates = UserInterface.EnterSearchCriteria(updates, input);
+                updates = UserInterface.EnterSearchCriteria(updates, input, animal);
                 UpdateAnimal(animal, updates);
             }
         }
@@ -253,9 +253,9 @@ namespace HumaneSociety
                 Query.RemoveAnimal(animal);
             }
         }
-        private void AddAnimal()
+        private void CreateAnimal()
         {
-            HumaneSocietyDataContext db = new HumaneSocietyDataContext();
+           
             Console.Clear();
             Animal animal = new Animal();
             animal.CategoryId = Query.GetCategoryId();
@@ -268,10 +268,7 @@ namespace HumaneSociety
             animal.DietPlanId = Query.GetDietPlanId(UserInterface.GetUserInputWithOutput("Name of Diet? E.X. 'Dog Diet;"));
             animal.Gender = UserInterface.GetStringData("gender", "the animal's");
             animal.AdoptionStatus = UserInterface.GetUserInputWithOutput("Please add adoption Status: Adopted, Pending, Available, Not Available");
-            Employee emp = new Employee();
-            emp.EmployeeNumber = Convert.ToInt16(UserInterface.GetUserInputWithOutput("What is your employee number?"));
-            animal.EmployeeId = db.Employees.Where(e => e.EmployeeNumber == emp.EmployeeNumber).Select(e => e.EmployeeId).Single();
-           // animal.Rooms = 
+            Query.AddAnimal(animal);
         }
         protected override void LogInPreExistingUser()
         {

@@ -358,7 +358,7 @@ namespace HumaneSociety
                     case "name":
                         Console.WriteLine("What name are you searching for?");
                         string Name = Console.ReadLine();
-                        allAnimals = allAnimals.Where(a => a.Name == Name).ToList();
+                        allAnimals = allAnimals.Where(a => a.Name.ToLower() == Name.ToLower()).ToList();
                         break;
                     case "weight":
                         Console.WriteLine("What weight are you searching for?");
@@ -449,17 +449,15 @@ namespace HumaneSociety
         internal static void AddAnimal(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            Animal tempAnimal = new Animal();
-            tempAnimal.Name = animal.Name;
-            tempAnimal.Weight = animal.Weight;
-            tempAnimal.Age = animal.Age;
-            tempAnimal.Demeanor = animal.Demeanor;
-            tempAnimal.KidFriendly = animal.KidFriendly;
-            tempAnimal.PetFriendly = animal.PetFriendly;
-            tempAnimal.Gender = animal.Gender;
-            tempAnimal.AdoptionStatus = animal.AdoptionStatus;
-            db.Animals.InsertOnSubmit(tempAnimal);
+            Employee emp = new Employee();
+            emp.EmployeeNumber = Convert.ToInt16(UserInterface.GetUserInputWithOutput("What is your employee number?"));
+            animal.EmployeeId = db.Employees.Where(e => e.EmployeeNumber == emp.EmployeeNumber).Select(e => e.EmployeeId).Single();
+         
+            db.Animals.InsertOnSubmit(animal);
             db.SubmitChanges();
+            UpdateRoom(animal);
+
+            
         }
         internal static void EnterAnimalUpdate(Animal animal, Dictionary<int, string> updates)
         {
@@ -507,7 +505,7 @@ namespace HumaneSociety
             }
             if (updates.ContainsKey(9))
             {
-                UpdateRoom(animal.AnimalId);
+                UpdateRoom(animal);
             }
 
             db.SubmitChanges();
@@ -559,22 +557,24 @@ namespace HumaneSociety
             return currentRoom;
         
         }
-        internal static void UpdateRoom(int AnimalId)
+        internal static Animal UpdateRoom(Animal animal)
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
-            if (UserInterface.GetBitData($"Would you like to modify the room that {db.Animals.Where(a => a.AnimalId == AnimalId).Select(a => a.Name).Single()} is being kept?"))
+            if (UserInterface.GetBitData($"Would you like to modify the room that {animal.Name} is being kept?"))
             {
-                Console.WriteLine($"What room are you moving {db.Animals.Where(a => a.AnimalId == AnimalId).Select(a => a.Name).Single()} to?");
-                int roomNumber=Convert.ToInt32(Console.ReadLine());
-                int? currentRoomNumber=db.Rooms.Where(r => r.AnimalId == AnimalId).Select(r=>r.RoomNumber).Single();
-                bool roomTransferExistence=db.Rooms.Select(r => r.RoomNumber == roomNumber).Single();
+                Console.WriteLine($"What room are you moving {animal.Name} to?");
+                int roomNumber=UserInterface.GetIntegerData();
+                int? currentRoomNumber=db.Rooms.Where(r => r.AnimalId == animal.AnimalId).Select(r=>r.RoomNumber).SingleOrDefault();
+                int? roomNumberOfExistingRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.RoomNumber).SingleOrDefault();
+                bool roomExist = roomNumberOfExistingRoom.HasValue;
+                int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
                 try
-                {
-                    if (roomTransferExistence == true && roomNumber != currentRoomNumber)
+                { 
+                    if (roomExist== true && roomNumber != currentRoomNumber && animalInRoom == null)
                     {
-                        int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
 
-                        animalInRoom = AnimalId;
+                        Room roomAsignment = db.Rooms.Where(r => r.RoomNumber == roomNumber).Single();
+                        roomAsignment.AnimalId = animal.AnimalId;
                         db.SubmitChanges();
                     }
                 }
@@ -582,7 +582,10 @@ namespace HumaneSociety
                 {
                     Console.WriteLine("This room is either the current room or does not exist./n Please try a different room number");
                 }
+
+                
             }
+            return animal;
         }
     }
 
