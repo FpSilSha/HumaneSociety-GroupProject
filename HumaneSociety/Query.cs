@@ -476,7 +476,13 @@ namespace HumaneSociety
         {
             HumaneSocietyDataContext db = new HumaneSocietyDataContext();
             Animal animalToDelete = db.Animals.Where(a => a.AnimalId == animal.AnimalId).Single();
-            db.Animals.DeleteOnSubmit(animalToDelete);
+            List<Room> roomsAffected = db.Rooms.Where(r => r.AnimalId == animalToDelete.AnimalId).ToList();
+            foreach (Room room in roomsAffected)
+            {
+                room.AnimalId = null;
+            }
+            animalToDelete.EmployeeId = null;
+            animalToDelete.AdoptionStatus = "Removed";
             db.SubmitChanges();
         }
         internal static List<AnimalShot> GetShots(Animal animal)
