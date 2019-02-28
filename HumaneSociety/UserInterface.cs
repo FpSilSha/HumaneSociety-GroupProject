@@ -148,7 +148,7 @@ namespace HumaneSociety
         public static void DisplayAnimalInfo(Animal animal)
         {
             Room animalRoom = Query.GetRoom(animal.AnimalId);
-            List<string> info = new List<string>() {"ID: " + animal.AnimalId, animal.Name, animal.Age + "years old", "Demeanour: " + animal.Demeanor, "Kid friendly: " + BoolToYesNo(animal.KidFriendly), "pet friendly: " + BoolToYesNo(animal.PetFriendly), $"Location: Room " + animalRoom.RoomNumber, "Weight: " + animal.Weight.ToString(),  "Food amoumnt in cups:" + animal.DietPlan.FoodAmountInCups};
+            List<string> info = new List<string>() {"ID: " + animal.AnimalId, animal.Name, animal.Age + "years old", "Demeanour: " + animal.Demeanor, "Kid friendly: " + BoolToYesNo(animal.KidFriendly), "pet friendly: " + BoolToYesNo(animal.PetFriendly), $"Location: Room " + animalRoom.RoomNumber, "Weight: " + animal.Weight.ToString(),  "Food amoumnt in cups:" + animal.DietPlan.FoodAmountInCups, "Adoption Status: " +  animal.AdoptionStatus};
             DisplayUserOptions(info);
             Console.ReadLine();
 
@@ -181,16 +181,17 @@ namespace HumaneSociety
                 return false;
             }
         }
+ 
         public static Dictionary<int, string> EnterSearchCriteria(Dictionary<int, string> searchParameters, string input, Animal animal)
         {
             Console.Clear();
             switch (input)
             {
                 case "1":
-                    searchParameters.Add(1, UserInterface.GetStringData("category", "the animal's"));
+                    searchParameters.Add(1, UserInterface.GetStringData("name", "the animal's"));
                     return searchParameters;
                 case "2":
-                    searchParameters.Add(2, UserInterface.GetStringData("name", "the animal's"));
+                    searchParameters.Add(2, UserInterface.GetIntegerData("weight", "the animal's").ToString());
                     return searchParameters;
                 case "3":
                     searchParameters.Add(3, UserInterface.GetIntegerData("age", "the animal's").ToString());
@@ -205,10 +206,13 @@ namespace HumaneSociety
                     searchParameters.Add(6, UserInterface.GetBitData("the animal", "pet friendly").ToString());
                     return searchParameters;
                 case "7":
-                    searchParameters.Add(7, UserInterface.GetIntegerData("weight", "the animal's").ToString());
+                    searchParameters.Add(7, UserInterface.GetStringData("gender", "the animal's"));
                     return searchParameters;
                 case "8":
-                    searchParameters.Add(8, UserInterface.GetIntegerData("ID", "the animal's").ToString());
+                    searchParameters.Add(8, UserInterface.GetStringData("Adoption Status", "the animal's"));
+                    return searchParameters;
+                case "9":
+                    searchParameters.Add(9, "room");
                     return searchParameters;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again");

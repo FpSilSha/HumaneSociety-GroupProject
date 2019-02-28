@@ -363,81 +363,41 @@ namespace HumaneSociety
                     case "weight":
                         Console.WriteLine("What weight are you searching for?");
                         int weight = Convert.ToInt16(Console.ReadLine());
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].Weight != weight)
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
+                        allAnimals = allAnimals.Where(a => a.Weight == weight).ToList();
+
                         break;
                     case "age":
                         Console.WriteLine("What age are you searching for?");
                         int? age = Convert.ToInt16(Console.ReadLine());
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].Age != age)
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
+                        allAnimals = allAnimals.Where(a => a.Age == age).ToList();
+
                         break;
                     case "demeanor":
                         Console.WriteLine("What demeanor are you looking for?");
                         string demeanor = Console.ReadLine();
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].Demeanor.ToLower() != demeanor.ToLower())
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
-                        
-                      
+                        allAnimals = allAnimals.Where(a => a.Demeanor.ToLower() == demeanor.ToLower()).ToList();
+
+
                         break;
                     case "kid friendly":
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].KidFriendly != true)
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
-                        
-                    
+                        allAnimals = allAnimals.Where(a => a.PetFriendly == true).ToList();
+
                         break;
                     case "pet friendly":
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].PetFriendly != true)
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
-                        
-                     
+                        allAnimals = allAnimals.Where(a => a.PetFriendly == true).ToList();
+
                         break;
                     case "gender":
                         Console.WriteLine("What gender are you searching for?");
                         string gender = Console.ReadLine();
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].Gender != gender.ToLower())
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
+                        allAnimals = allAnimals.Where(a => a.Gender.ToLower() == gender.ToLower()).ToList();
+
                         break;
                     case "adoption status":
                         Console.WriteLine("What adoption status are you searching for?");
                         string adoptionStatus = Console.ReadLine();
-                        for(int i = 0; i < allAnimals.Count; i++)
-                        {
-                            if (allAnimals[i].AdoptionStatus.ToLower() != adoptionStatus.ToLower())
-                            {
-                                allAnimals.Remove(allAnimals[i]);
-                            }
-                        }
+                        allAnimals = allAnimals.Where(a => a.AdoptionStatus.ToLower() == adoptionStatus.ToLower()).ToList();
+
                         break;
                 }
             }
@@ -482,6 +442,7 @@ namespace HumaneSociety
             {
                 var demeanor = updates.Where(u => u.Key == 4).Select(u => u.Value).Single();
                 animal.Demeanor = demeanor;
+
             }
             if (updates.ContainsKey(5))
             {
@@ -570,10 +531,15 @@ namespace HumaneSociety
                 int? animalInRoom = db.Rooms.Where(r => r.RoomNumber == roomNumber).Select(r => r.AnimalId).Single();
                 try
                 { 
-                    if (roomExist== true && roomNumber != currentRoomNumber && animalInRoom == null)
+                    if (roomExist == true && roomNumber != currentRoomNumber && animalInRoom == null)
                     {
 
                         Room roomAsignment = db.Rooms.Where(r => r.RoomNumber == roomNumber).Single();
+                        List<Room> roomsAffected = db.Rooms.Where(r => r.AnimalId == animal.AnimalId).ToList();
+                        foreach (Room room in roomsAffected)
+                        {
+                            room.AnimalId = null;
+                        }
                         roomAsignment.AnimalId = animal.AnimalId;
                         db.SubmitChanges();
                     }
